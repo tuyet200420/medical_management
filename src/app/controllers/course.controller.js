@@ -64,7 +64,9 @@ class CourseController {
 
 
   getCourse(req,res) {
-    Course.find().populate("category_id").then(data => res.send(data)).catch((error)=>res.status(500).json({error}))
+    Course.find().populate("category_id")
+    .then(data => res.send(data))
+    .catch((error)=>res.status(500).json({error}))
   }
 }
 module.exports = new CourseController
