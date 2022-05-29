@@ -3,7 +3,7 @@ const Vaccine = require('./Vaccine');
 const Schema = mongoose.Schema;
 
 const Vaccination_plan = new Schema({
-  date:{ type: Date, default: Date.now },
+  date:String,
   time: String,
   vaccine_id: { type: Schema.Types.ObjectId, ref: Vaccine }
 },{timestamps:true});
