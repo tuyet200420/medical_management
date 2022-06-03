@@ -12,6 +12,10 @@ const cors = require('cors');
 
 app.use(cors());
 
+const accountSid = "ACf5fc2f66e9fa0410efc7d36a4def0d39";
+const authToken = "1802fbfd36b6e03fc71793f82b0465d7";
+const client = require('twilio')(accountSid, authToken);
+const number =  ["+84337987824"];
 // app.use(morgan('combined'))
 //tự động show img trong public
 app.use(express.static(path.join(__dirname, 'public')))
@@ -74,6 +78,19 @@ app.post('/uploadmultiple', upload.array('formFileMultiple', 3), (req, res, next
   res.send(files);
   
 })
+
+app.get('/sendsms', (req, res) => {
+  client.messages
+  .create({
+     body: 'Hello Trieu nho',
+     from: '+19705404124',
+     to: '+84399599976'
+   })
+  .then(message => res.send(message))
+  .catch((next) => {res.render(next)})
+  
+})
+
 route(app);
 
 app.listen(port, () => {

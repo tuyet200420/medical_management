@@ -29,14 +29,11 @@ class CategoryController {
   };
 
   put(req,res,next) {
-    console.log(req.body);
-    console.log(req.params.id);
-    Category.updateOne({_id: req.params.id},req.body)
+    const result = Category.updateOne({_id: req.params.id},req.body)
+    console.log(result)
     .then(()=>{
-      const data = req.body;
-      data._id = req.params.id;
       res.send(
-        data
+        result
        );
     })
     .catch(next=>{res.status(500).send(next)})
