@@ -2,6 +2,14 @@ const Patient_vaccination = require("../models/Patient_vaccination");
 class Patient_vaccinationController {
   get(req, res, next) {
     var item = {};
+    if (req.query["s"]) {
+      item = {
+        $or: [
+          { name: { $regex: req.query.s, $options: "i" } },
+          { phone_number: { $regex: req.query.s, $options: "i" } },
+        ],
+      };
+    }
     if (req.query.q) {
       item.vaccine_id = req.query.q
     }

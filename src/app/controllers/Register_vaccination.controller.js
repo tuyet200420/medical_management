@@ -1,7 +1,9 @@
 const RegisterVaccination = require("../models/Register_vaccination");
 class Register_vaccinationController {
   get(req, res, next) {
+   
     var item = {};
+
     if (req.query["q"]) {
       item = {
         $or: [
@@ -9,6 +11,9 @@ class Register_vaccinationController {
           { phone_number: { $regex: req.query.q, $options: "i" } },
         ],
       };
+    }
+    if (req.query.userId) {
+      item.user_id = req.query.userId
     }
     RegisterVaccination.find(item)
       .populate("vaccine_id")
@@ -38,7 +43,7 @@ class Register_vaccinationController {
       .save()
       .then((data) => {
         RegisterVaccination.findById(data._id)
-        .populate("vaccine_id")
+          .populate("vaccine_id")
           .then((registerVaccinations) => {
             res.send(registerVaccinations);
           })
@@ -56,7 +61,7 @@ class Register_vaccinationController {
     RegisterVaccination.updateOne({ _id: req.params.id }, req.body)
       .then(() => {
         RegisterVaccination.findById(req.params.id)
-        .populate("vaccine_id")
+          .populate("vaccine_id")
           .then((registerVaccinations) => {
             res.send(registerVaccinations);
           })

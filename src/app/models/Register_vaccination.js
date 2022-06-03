@@ -15,7 +15,8 @@ const Register_vaccination = new Schema({
   birthday: String,
   gender:String,
   guardian:String,//ng dám hộ
-  phone_number: String
+  phone_number: String,
+  target_date:String
 },{timestamps:true});
 
 module.exports=mongoose.model('Register_vaccination', Register_vaccination);
