@@ -7,6 +7,7 @@ const patientRouter = require('./patient.route');
 const vaccination_planRouter = require('./vaccination_plan.route');
 const patient_vaccinationRouter =  require('./patient_vaccination.route');
 const register_vaccinationRouter =  require('./register_vaccination.route');
+const  messengerRouter=  require('./message.route');
 const userRouter =  require('./user.route');
 function route(app){
   app.use('/new',newRouter);
@@ -19,6 +20,8 @@ function route(app){
   app.use('/patient_vaccination',patient_vaccinationRouter);
   app.use('/user',userRouter);
   app.use('/register_vaccination',register_vaccinationRouter);
+  app.use('/messenger',messengerRouter);
+  // app.use('/messenger',rout);
 }
 
 module.exports = route;
