@@ -22,14 +22,25 @@ class MessageController {
   }
 
   GetSlug(req, res, next) {
-    Message.findById(req.params.id)
-    .populate("user_id")
-      .then((messages) => {
-        res.send(messages);
-      })
-      .catch((next) => {
-        res.status(500).send(next);
-      });
+    if (req.query["q"]) {
+      Message.findOne({ "user_id": req.query["q"] })
+        .populate("user_id")
+        .then((messages) => {
+          res.send(messages);
+        })
+        .catch((next) => {
+          res.status(500).send(next);
+        });
+    } else {
+      Message.findById(req.params.id)
+        .populate("user_id")
+        .then((messages) => {
+          res.send(messages);
+        })
+        .catch((next) => {
+          res.status(500).send(next);
+        });
+    }
   }
 
   post(req, res, next) {
@@ -39,7 +50,7 @@ class MessageController {
       .save()
       .then((data) => {
         Message.findById(data._id)
-        .populate("user_id")
+          .populate("user_id")
           .then((messages) => {
             res.send(messages);
           })
@@ -55,8 +66,8 @@ class MessageController {
   put(req, res, next) {
     Message.updateOne({ _id: req.params.id }, req.body)
       .then(() => {
-        Message.findById( req.params.id)
-        .populate("user_id")
+        Message.findById(req.params.id)
+          .populate("user_id")
           .then((messages) => {
             res.send(messages);
           })

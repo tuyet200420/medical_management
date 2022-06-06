@@ -3,6 +3,7 @@ class Patient_vaccinationController {
   get(req, res, next) {
     var item = {};
     if (req.query["s"]) {
+      console.log(req.query.s)
       item = {
         $or: [
           { name: { $regex: req.query.s, $options: "i" } },
@@ -11,10 +12,10 @@ class Patient_vaccinationController {
       };
     }
     if (req.query.q) {
-      item.vaccine_id = req.query.q
+      item.vaccine_id = req.query.q;
     }
     if (req.query.status) {
-      item.status = req.query.status
+      item.status = req.query.status;
     }
     Patient_vaccination.find(item)
       .populate("vaccine_id")
